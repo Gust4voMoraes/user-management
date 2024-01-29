@@ -1,26 +1,12 @@
-from flask import Flask, url_for, render_template
+from flask import Flask
+from routes.home import home_route # import the home route from the routes folder
+from routes.users import user_route # import the users routes from routes folder
 
 #INITIALIZATION
 app = Flask(__name__)
 
-
-#ROUTES
-@app.route("/")
-def hello():
-    title = "User Management"
-    users = [
-        {"name": "Gustavo", "active_member": True},
-        {"name": "Guilherme", "active_member": False},
-        {"name": "Maria", "active_member": False},
-    ]
-    return render_template("index.html", title=title, users=users)#(context variable=variable of the function)
-
-
-@app.route("/about")
-def aboutPage():
-    return """
-        <h3><b>Gustavo Fernandes de Moraes</b><span>&#128125;</span>: <a href="https://linkedin.com/in/gustavo-fernandes-de-moraes">Linkedin Profile</a></h3>
-"""
+app.register_blueprint(home_route) # register the imported home route varaible
+app.register_blueprint(user_route, url_prefix="/users") # register the imported user route variable
 
 #EXECUTION
 app.run(debug=True)
