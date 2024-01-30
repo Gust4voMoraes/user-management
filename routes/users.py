@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template
+from database.user import USERS 
 
 user_route = Blueprint("user", __name__)
 
 @user_route.route("/")
 def user_list(): # list the users
-    return render_template("user_list.html")
+    return render_template("user_list.html", users=USERS)
 
 @user_route.route("/", methods=["POST"])
 def insert_user(): # insert the user data
