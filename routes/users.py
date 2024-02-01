@@ -1,15 +1,25 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from database.user import USERS 
 
 user_route = Blueprint("user", __name__)
 
 @user_route.route("/")
 def user_list(): # list the users
-    return render_template("user_list.html", users=USERS)
+    return render_template("user_list.html", users=USERS) 
 
 @user_route.route("/", methods=["POST"])
-def insert_user(): # insert the user data
-    pass
+def add_user(): # insert the user data
+    data = request.json
+
+    new_user = {
+        "id": len(USERS) + 1,
+        "name": data['name'],
+        "email": data['email'],
+    }
+
+    USERS.append(new_user)
+
+    return render_template("user_item.html", user=new_user)
 
 @user_route.route("/new")
 def form_user(): # form to register a user

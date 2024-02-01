@@ -7,18 +7,10 @@
         <th scope="col">Actions</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="user_list">
 
         {% for user in users %}
-            <tr>
-                <th scope="row">{{ user.id }}</th>
-                <td>{{ user.name }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    <button class="btn btn-primary">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
-                </td>
-            </tr>
+            {% include 'user_item.html' %}
         {% endfor %}
 
     </tbody>
