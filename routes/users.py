@@ -5,7 +5,7 @@ user_route = Blueprint("user", __name__)
 
 @user_route.route("/")
 def user_list(): # list the users
-    return render_template("user_list.html", users=USERS) 
+    return render_template("user_list.html", users=USERS)
 
 @user_route.route("/", methods=["POST"])
 def add_user(): # insert the user data
@@ -39,4 +39,6 @@ def update_user(user_id): # update user data
 
 @user_route.route("/<int:user_id>/delete", methods=["DELETE"])
 def delete_user(user_id): # delete user data
-    pass
+    global USERS
+    USERS = [ u for u in USERS if u["id"] != user_id ]
+    return {"deleted" : "ok"}
