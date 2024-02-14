@@ -31,11 +31,29 @@ def detail_user(user_id): # show user details
 
 @user_route.route("/<int:user_id>/edit")
 def form_edit_user(user_id): # form to edit a user
-    return render_template("form_edit_user.html")
+    user = None
+    for c in USERS:
+        if c['id'] == user_id:
+            user = c
+
+    return render_template("form_user.html", user=user)
 
 @user_route.route("/<int:user_id>/update", methods=["PUT"])
 def update_user(user_id): # update user data
-    pass
+    user = None
+    #get data from update form
+    data = request.json
+
+    #get user from id
+    for c in USERS:
+        if c['id'] == user_id:
+            c['name'] = data['name']
+            c['email'] = data['email']
+
+            updated_user = c
+
+    #edit user
+    return render_template('user_item.html', user=updated_user)
 
 @user_route.route("/<int:user_id>/delete", methods=["DELETE"])
 def delete_user(user_id): # delete user data
