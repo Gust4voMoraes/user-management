@@ -3,12 +3,23 @@
     <td>{{ user.name }}</td>
     <td>{{ user.email }}</td>
     <td>
-        <button class="btn btn-primary" 
-        c-get="{{ url_for('user.form_edit_user', user_id=user.id) }}"
-        c-target="#user-form">
-            Edit
-    </button>
-        <button class="btn btn-danger" c-delete="{{ url_for('user.delete_user', user_id=user.id) }}"
-        c-remove-closest="tr">Delete</button>
+        <button class="btn btn-secondary" 
+            c-get="{{ url_for('user.detail_user', user_id=user.id) }}"
+            c-target="#show-user"
+            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Show
+        </button>
+
+        <button class="btn btn-primary"
+            c-get="{{ url_for('user.form_edit_user', user_id=user.id) }}"
+            c-target="#user-form">
+                Edit
+        </button>
+
+        <button class="btn btn-danger" 
+            c-delete="{{ url_for('user.delete_user', user_id=user.id) }}"
+            c-remove-closest="tr">
+                Delete
+        </button>
     </td>
 </tr>

@@ -27,7 +27,9 @@ def form_user(): # form to register a user
 
 @user_route.route("/<int:user_id>")
 def detail_user(user_id): # show user details
-    return render_template("detail_user.html")
+
+    user = list(filter(lambda c: c['id'] == user_id, USERS))[0]
+    return render_template("detail_user.html", user=user)
 
 @user_route.route("/<int:user_id>/edit")
 def form_edit_user(user_id): # form to edit a user
@@ -40,7 +42,7 @@ def form_edit_user(user_id): # form to edit a user
 
 @user_route.route("/<int:user_id>/update", methods=["PUT"])
 def update_user(user_id): # update user data
-    user = None
+    updated_user = None
     #get data from update form
     data = request.json
 
